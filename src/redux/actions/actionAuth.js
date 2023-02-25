@@ -1,41 +1,28 @@
-import * as authReducers from "../reducers/authReducer";
+import {loginSuccess} from '../reducers/authReducer';
+import api from '@/services/api/v1';
 
-export const login = (formData) => {
-  return async (dispatch) => {
-    await new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(true);
-      }, 1000);
-    });
+export const login = (username, password) => {
+  return async dispatch => {
+    // fetch api
+    const response = await api.auth.login({username, password});
 
-    if (
-      formData.username === "super@gmail.com" &&
-      formData.password === "12345678"
-    ) {
-      dispatch(
-        authReducers.loginSuccess({
-          token: "token1234",
-          username: formData.username,
-        })
-      );
+    if (response.status == 200) {
+      // dispatch action to reducers
+      dispatch(loginSuccess({token: response.data?.token, username}));
 
+      // return response to container
       return {
         status: true,
+        token: response.data?.token,
       };
     } else {
+      const errors = response.data?.errors;
+
+      // return response to container
       return {
         status: false,
-        code: 400,
-        errors: {
-          username: "Invalid username or password",
-        },
+        errors,
       };
     }
-  };
-};
-
-export const logout = () => {
-  return async (dispatch) => {
-    dispatch(authReducers.logoutSuccess());
   };
 };

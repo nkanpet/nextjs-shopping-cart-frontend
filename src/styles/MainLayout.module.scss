@@ -1,0 +1,42 @@
+.navbar {
+    .gridNavbar {
+        .navbarBrand {
+            margin-right: 48px;
+        }
+        // .navbarSearch {
+        //     width: 100%;
+        // }
+        .buttonSignUp {
+            background-color: #2bb17b;
+            color: #ffffff;
+        }
+        .navbarRegister {
+            padding-left: 48px;
+        }
+    }
+    
+}
+
+.cardProductContainer {
+    background-color: #eae9e5;
+    .cardProductText {
+        color: #a2988e;
+        font-size: 15px;
+        font-weight: bold;
+        text-align: center;
+        margin-top: 0;
+    }
+    .cardButton {
+        justify-content: center;
+        // background-color: #ffffff;
+        border-radius: 20px;
+    }
+}
+
+@media (max-width: 959px) {
+    .navbar {
+        .gridNavbar {
+            display: none;
+        }
+    }
+}

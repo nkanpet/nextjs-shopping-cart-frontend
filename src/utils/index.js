@@ -32,3 +32,39 @@ export const numberFormat = (number, float = 2) =>
 export function getRndInteger(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
+
+export function apiPromise(promise) {
+  return promise
+    .then(response => {
+      return response;
+    })
+    .catch(error => {
+      return {
+        status: error.response?.status,
+        data: error.response?.data,
+        error: error,
+      };
+    });
+}
+
+export function getResponseErrorMessage(response) {
+  try {
+    const {data, error} = response;
+
+    if (response.status === 401) {
+      return 'Expired session, please log in again';
+    } else if (error) {
+      return error.message;
+    } else if (data.error) {
+      return data.error;
+    } else if (data.message) {
+      return data.message;
+    } else if (data.error_message) {
+      return data.error_message;
+    } else {
+      return `Error status code ${response.status}`;
+    }
+  } catch (error) {
+    return error.message;
+  }
+}

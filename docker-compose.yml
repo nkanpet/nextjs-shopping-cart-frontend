@@ -6,7 +6,6 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: app_${COMPOSE_APP_NAME}
     ports:
       - ${COMPOSE_APP_PORT}:3000
     volumes:

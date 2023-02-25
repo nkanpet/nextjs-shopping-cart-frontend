@@ -1,14 +1,14 @@
 import React from 'react';
 
-import ProductList from '@/containers/product/list';
 import MainLayout from '@/containers/layouts/main';
+import Link from 'next/link';
 
-const App = () => {
+const Register = () => {
   return (
     <MainLayout>
-      <ProductList />
+      <div></div>
     </MainLayout>
   );
 };
 
-export default App;
+export default Register;
