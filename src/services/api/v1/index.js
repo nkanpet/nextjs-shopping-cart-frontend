@@ -21,6 +21,17 @@ export default {
 
       return apiPromise(axios(options));
     },
+    logout: token => {
+      const options = {
+        url: '/auth/logout',
+        method: 'POST',
+        headers: {
+          Authorization: 'Bearer ' + token,
+        },
+      };
+
+      return apiPromise(axios(options));
+    },
   },
   product: {
     list: params => {
@@ -48,6 +59,54 @@ export default {
       };
 
       return apiPromise(axios(options));
-    }
-  }
+    },
+  },
+  cart: {
+    list: token => {
+      const options = {
+        url: '/cart',
+        method: 'GET',
+        headers: {
+          Authorization: 'Bearer ' + token,
+        },
+      };
+
+      return apiPromise(axios(options));
+    },
+    addItem: (token, form) => {
+      const options = {
+        url: '/cart',
+        method: 'POST',
+        headers: {
+          Authorization: 'Bearer ' + token,
+        },
+        data: form,
+      };
+
+      return apiPromise(axios(options));
+    },
+    updateItem: (token, id, form) => {
+      const options = {
+        url: `/cart/item/${id}`,
+        method: 'PATCH',
+        headers: {
+          Authorization: 'Bearer ' + token,
+        },
+        data: form,
+      };
+
+      return apiPromise(axios(options));
+    },
+    deleteItem: (token, id) => {
+      const options = {
+        url: `/cart/item/${id}`,
+        method: 'DELETE',
+        headers: {
+          Authorization: 'Bearer ' + token,
+        },
+      };
+
+      return apiPromise(axios(options));
+    },
+  },
 };

@@ -1,11 +1,11 @@
 import React from 'react';
-import {Navbar, Button, Link, Input, Text, Grid} from '@nextui-org/react';
+import {Navbar, Button, Link, Input, Text, Grid, Badge} from '@nextui-org/react';
 import NextLink from 'next/link';
 
 import styles from '@/styles/MainLayout.module.scss';
 import {useRouter} from 'next/router';
 
-const HeaderNavbar = ({brandName = '', menus = []}) => {
+const HeaderNavbar = ({brandName = '', menus = [], username = '', basket = 0, onLogout = () => {}}) => {
   const router = useRouter();
 
   return (
@@ -39,17 +39,33 @@ const HeaderNavbar = ({brandName = '', menus = []}) => {
             activeColor="success"
             variant="underline"
             className={styles.navbarContent}>
-            <Navbar.Link href="#">MY BASKET</Navbar.Link>
+            <Navbar.Item>
+              <NextLink href="/cart">
+                <Badge color="error">{basket}</Badge> MY BASKET
+              </NextLink>
+            </Navbar.Item>
           </Navbar.Content>
           <Navbar.Content className={styles.navbarRegister}>
-            <Navbar.Item color="inherit">
-              <NextLink href="/auth/login">Login</NextLink>
-            </Navbar.Item>
-            <Navbar.Item>
-              <Button auto flat className={styles.buttonSignUp} onClick={() => router.push('/register')}>
-                Sign Up
-              </Button>
-            </Navbar.Item>
+            {!username ? (
+              <>
+                <Navbar.Item color="inherit">
+                  <NextLink href="/auth/login">Login</NextLink>
+                </Navbar.Item>
+                <Navbar.Item>
+                  <Button auto flat className={styles.buttonSignUp} onClick={() => router.push('/register')}>
+                    Sign Up
+                  </Button>
+                </Navbar.Item>
+              </>
+            ) : (
+              <>
+                <Navbar.Item color="inherit">
+                  <Button auto flat color="warning" onClick={onLogout}>
+                    Logout
+                  </Button>
+                </Navbar.Item>
+              </>
+            )}
           </Navbar.Content>
         </Grid>
       </Grid.Container>

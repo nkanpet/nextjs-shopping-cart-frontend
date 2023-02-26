@@ -3,7 +3,7 @@ import {Grid, Card, Text, Row, Button, Image} from '@nextui-org/react';
 
 import styles from '@/styles/MainLayout.module.scss';
 
-const ProductList = ({data = []}) => {
+const ProductList = ({data = [], onAddToCart = () => {}}) => {
   const mockItem = item => {
     return (
       <Card className={styles.cardProductContainer} isHoverable>
@@ -15,7 +15,9 @@ const ProductList = ({data = []}) => {
         </Card.Body>
         <Card.Footer>
           <Row justify="center">
-            <Button className={styles.cardButton}>ADD TO BASKET</Button>
+            <Button className={styles.cardButton} onPress={() => onAddToCart(item)}>
+              ADD TO BASKET
+            </Button>
           </Row>
         </Card.Footer>
       </Card>

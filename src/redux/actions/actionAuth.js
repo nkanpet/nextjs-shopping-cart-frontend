@@ -1,4 +1,5 @@
-import {loginSuccess} from '../reducers/authReducer';
+import {getResponseErrorMessage} from '@/utils';
+import {loginSuccess, logoutSuccess} from '../reducers/authReducer';
 import api from '@/services/api/v1';
 
 export const login = (username, password) => {
@@ -22,6 +23,28 @@ export const login = (username, password) => {
       return {
         status: false,
         errors,
+      };
+    }
+  };
+};
+
+export const logout = () => {
+  return async (dispatch, getState) => {
+    const {auth} = getState();
+    const response = await api.auth.logout(auth.token);
+
+    if (response.status == 200) {
+      dispatch(logoutSuccess());
+
+      return {
+        status: true,
+      };
+    } else {
+      const error = getResponseErrorMessage(response);
+
+      return {
+        status: false,
+        error,
       };
     }
   };

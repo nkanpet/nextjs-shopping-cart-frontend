@@ -8,7 +8,7 @@ const persistConfig = {
   key: 'shopping_cart',
   version: 1,
   storage,
-  whitelist: ['auth', 'product', 'category'],
+  whitelist: ['auth', 'product', 'category', 'cart'],
   timeout: 0,
 };
 
